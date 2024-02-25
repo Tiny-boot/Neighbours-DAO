@@ -1,0 +1,11 @@
+[profile.default]
+src = "src"
+out = "artifacts"
+libs = ["node_modules", "lib"]
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+]
+
+gas_reports = ["VoteToken", "GovernanceLogic"]
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
