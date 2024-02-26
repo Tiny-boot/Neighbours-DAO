@@ -15,10 +15,19 @@ This extension can be added to a token format ERC20 or ERC721 to give the token 
 Extracts the Vote count from the checkpoint in the token contract.
 
 ### GovernorCountingSimple.sol & & GovernorVotesQuorumFraction.sol
-Hardcoded voting strategy. The *VoteType* enum allows for yes/no/abstain as choices for each proposal.
+Hardcoded voting strategy. The *VoteType* enum allows for against/for/abstain as choices for each proposal.
 
 **_countVotes** - counts the vote in accordance o the weighted voting power scheme.
 **Quorum** - The quorum is calculated based on a *quorum numerator* which can be adjusted. This represents a percentage of the total supply. Both numerator and denominator can be adjusted and the history of the adjustment is kept. The QuorumFraction contract takes in a numerator in its constructor.
+**COUNT_MODE** - In this governance model, both for and abstain votes count towards the percentage required to reach quorum.
 
 ### Governor.sol
-The control center of the governance process. If a timelock 
+The control center of the governance process. If a time lock is applied, the time lock contract gains control of the governor contract but in this example, there is none.
+
+The proposal struct is set up in a way to enable onchain execution.
+
+**propose** - function which allows the creation of proposals. onchain execution is possible with fields for constructing transactions with executable code. ProposalId can also be calculated from hashing.
+**castVote** - there are multiple ways to cast votes. From simple vote, vote with reason, additional parameters, etc.
+**execute** - onchain execution after proposal is queued.
+
+The general Openzeppelin setup is create proposal - voting delay for discussion time - voting period - queueing - execution.

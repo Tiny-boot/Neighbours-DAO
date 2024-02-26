@@ -93,7 +93,8 @@ contract GovernanceTest is Test {
 		assertEq(governance.hasVoted(proposalID, address(1)), true);
 
 		(againstVotes, forVotes, abstainVotes) = governance.proposalVotes(proposalID);
-		console2.log("against: %s, for: %s, abstain: %s", againstVotes, forVotes, abstainVotes);		
+		console2.log("against: %s, for: %s, abstain: %s", againstVotes, forVotes, abstainVotes);	
+		assertEq(governance.quorumReached(proposalID), false);	
 	}
 
 	function test_ExecuteOnchain() public {
