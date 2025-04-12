@@ -3,7 +3,7 @@
 This DAO uses a ERC20 token with a vote extension. The vote extension allows delegation, vote history and quorum functionalities. A time lock is not used in this example for simplicity sake and there is no fine grains control of time locking, only hard set periods fo voting and execution.
 
 ### Project Description
-*Governance Model*
+####*Governance Model*
 Proposals can only be submitted by official city representatives, such as:
 
 The Mayor
@@ -20,7 +20,7 @@ Major infrastructure changes: 4 of 5 signatures
 
 This ensures that more critical decisions require broader consensus among city leadership.
 
-*Voting System*
+####*Voting System*
 Only registered city residents are eligible to vote. This registration process verifies identity and residence, ensuring that voting power stays within the community.
 
 Key characteristics of the voting system:
@@ -29,7 +29,7 @@ Residents vote on-chain for or against active proposals.
 
 Voters receive a reward token for participating.
 
-*Reward Mechanism*
+####*Reward Mechanism*
 The reward token functions as a local utility token. It can be used in:
 
 Local shops and restaurants (discounts, loyalty bonuses)
