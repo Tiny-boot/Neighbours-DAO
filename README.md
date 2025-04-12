@@ -3,8 +3,46 @@
 This DAO uses a ERC20 token with a vote extension. The vote extension allows delegation, vote history and quorum functionalities. A time lock is not used in this example for simplicity sake and there is no fine grains control of time locking, only hard set periods fo voting and execution.
 
 ### Project Description
-Descrition of the DAO and the token and governance model
+*Governance Model*
+Proposals can only be submitted by official city representatives, such as:
 
+The Mayor
+
+Syndicate leaders
+
+Neighborhood representatives
+
+Proposal submission is managed through a multi-signature wallet, where the required number of signatures varies depending on the importance or impact level of the proposal. For example:
+
+Minor proposals (e.g., local event funding): 2 of 5 signatures
+
+Major infrastructure changes: 4 of 5 signatures
+
+This ensures that more critical decisions require broader consensus among city leadership.
+
+*Voting System*
+Only registered city residents are eligible to vote. This registration process verifies identity and residence, ensuring that voting power stays within the community.
+
+Key characteristics of the voting system:
+
+Residents vote on-chain for or against active proposals.
+
+Voters receive a reward token for participating.
+
+*Reward Mechanism*
+The reward token functions as a local utility token. It can be used in:
+
+Local shops and restaurants (discounts, loyalty bonuses)
+
+Public services and infrastructure (e.g., subsidized transport or facility access)
+
+To promote early and informed participation, the reward system is inversely proportional to total votes:
+
+The earlier a resident votes, the more tokens they receive.
+
+As more people vote on a proposal, the reward for new voters decreases.
+
+This design incentivizes voters to engage promptly with community issues, rather than waiting until the outcome is clear.
 **Installation and Execution** - How to download and install the project (at the very least need npm and hardhat)
 Tests available (tiny 20 word description of each of the tests)
 
