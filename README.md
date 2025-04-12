@@ -1,6 +1,11 @@
 # Neighbours-DAO
+### Chronology of work
+30/03-12/04: Conceptualisation and research around the type of DAO
+13/04-19/04: Coding of the tokens and the governance contract 
+20/04-26/04: Finalisation of the code and specifications
+27/04-30/04: Test and audit
 
-This DAO uses a ERC20 token with a vote extension. The vote extension allows delegation, vote history and quorum functionalities. A time lock is not used in this example for simplicity sake and there is no fine grains control of time locking, only hard set periods fo voting and execution.
+This DAO uses a ERCXXXX token with a vote extension. The vote extension allows delegation, vote history and quorum functionalities. A time lock is not used in this example for simplicity sake and there is no fine grains control of time locking, only hard set periods fo voting and execution.
 
 ### Project Description
 #### *Governance Model*
