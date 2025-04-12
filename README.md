@@ -43,6 +43,8 @@ The earlier a resident votes, the more tokens they receive.
 As more people vote on a proposal, the reward for new voters decreases.
 
 This design incentivizes voters to engage promptly with community issues, rather than waiting until the outcome is clear.
+
+
 **Installation and Execution** - How to download and install the project (at the very least need npm and hardhat)
 Tests available (tiny 20 word description of each of the tests)
 
