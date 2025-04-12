@@ -1,4 +1,4 @@
-# Class-DAO
+# Neighbour-DAO
 
 This DAO uses a ERC20 token with a vote extension. The vote extension allows delegation, vote history and quorum functionalities. A time lock is not used in this example for simplicity sake and there is no fine grains control of time locking, only hard set periods fo voting and execution.
 
