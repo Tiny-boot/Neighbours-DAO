@@ -1,18 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// OpenZeppelin Governance Modules
+// OpenZeppelin Governance
 import {Governor} from "@openzeppelin/contracts/governance/Governor.sol";
 import {GovernorCountingSimple} from "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import {GovernorVotes} from "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import {GovernorVotesQuorumFraction} from "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 import {GovernorTimelockControl} from "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
-
-// Token Interfaces (custom)
-import "./NeighborGovernanceToken.sol"; // NGT - Voting token
-import "./NeighborRewardToken.sol";     // NRT - Reward token
-
 import {TimelockController} from "@openzeppelin/contracts/governance/TimelockController.sol";
+
+// Custom Tokens
+import "./NeighborGovernanceToken.sol"; // NGT (Voting Token)
+import "./NeighborRewardToken.sol";     // NRT (Reward Token)
 
 contract NeighborDAO is
     Governor,
@@ -21,19 +20,23 @@ contract NeighborDAO is
     GovernorVotesQuorumFraction,
     GovernorTimelockControl
 {
-    NeighborGovernanceToken public ngtToken;
-    NeighborRewardToken public nrtToken;
+    NeighborGovernanceToken public ngtToken; // Voting token (residency check)
+    NeighborRewardToken public nrtToken;     // Reward token
 
+    // Proposal access control
     mapping(address => bool) public proposalWhitelist;
-    mapping(uint256 => uint256) public voteStartTime;
+
+    // Track voting start time for reward calculation
+    mapping(uint256 => uint256) public proposalStartBlock;
+
+    // Track whether a voter has voted on a specific proposal
     mapping(uint256 => mapping(address => bool)) public hasVoted;
 
-    // === Constructor ===
     constructor(
         NeighborGovernanceToken _ngtToken,
         NeighborRewardToken _nrtToken,
         TimelockController _timelock,
-        address[] memory _proposalWhitelist
+        address[] memory initialWhitelistedProposers
     )
         Governor("NeighborDAO")
         GovernorVotes(_ngtToken)
@@ -43,12 +46,14 @@ contract NeighborDAO is
         ngtToken = _ngtToken;
         nrtToken = _nrtToken;
 
-        for (uint256 i = 0; i < _proposalWhitelist.length; i++) {
-            proposalWhitelist[_proposalWhitelist[i]] = true;
+        // Add initial proposers to whitelist
+        for (uint256 i = 0; i < initialWhitelistedProposers.length; i++) {
+            proposalWhitelist[initialWhitelistedProposers[i]] = true;
         }
     }
 
-    // === Voting Config ===
+    // --- Governance Configuration ---
+
     function votingDelay() public pure override returns (uint256) {
         return 7200; // ~1 day in blocks
     }
@@ -58,42 +63,63 @@ contract NeighborDAO is
     }
 
     function proposalThreshold() public pure override returns (uint256) {
-        return 0; // No token threshold (submission is role-gated)
+        return 0; // Proposal control is based on whitelist
     }
 
-    // === Custom Proposal Control ===
+    // --- Proposal Submission ---
+
     function propose(
         address[] memory targets,
         uint256[] memory values,
         bytes[] memory calldatas,
         string memory description
     ) public override returns (uint256) {
-        require(proposalWhitelist[msg.sender], "Not allowed to propose");
+        require(proposalWhitelist[msg.sender], "Not authorized to propose");
+
         uint256 proposalId = super.propose(targets, values, calldatas, description);
-        voteStartTime[proposalId] = block.number;
+        proposalStartBlock[proposalId] = block.number;
+
         return proposalId;
     }
 
-    // === Vote Casting with Reward Logic ===
+    // --- Vote Casting with Rewarding ---
+
     function castVote(uint256 proposalId, uint8 support) public override returns (uint256) {
         require(ngtToken.isResident(msg.sender), "Only residents can vote");
         require(!hasVoted[proposalId][msg.sender], "Already voted");
 
         hasVoted[proposalId][msg.sender] = true;
 
-        // Reward logic: earlier votes earn more
-        uint256 elapsed = block.number - voteStartTime[proposalId];
-        uint256 maxReward = 1 ether; // 1 NRT (scaled by 1e18)
-        uint256 reward = (elapsed >= votingPeriod())
+        // Reward logic based on early voting
+        uint256 blocksSinceStart = block.number - proposalStartBlock[proposalId];
+        uint256 maxReward = 1 ether; // Max 1 NRT
+        uint256 reward = (blocksSinceStart >= votingPeriod())
             ? 0
-            : ((votingPeriod() - elapsed) * maxReward) / votingPeriod();
+            : ((votingPeriod() - blocksSinceStart) * maxReward) / votingPeriod();
 
         nrtToken.mintReward(msg.sender, reward);
 
         return super.castVote(proposalId, support);
     }
 
-    // === Required Overrides ===
+    // --- Proposal Outcome ---
+
+    function hasVoterVoted(uint256 proposalId, address voter) external view returns (bool) {
+        return hasVoted[proposalId][voter];
+    }
+
+    // --- Whitelist Admin ---
+
+    function addProposer(address proposer) external onlyGovernance {
+        proposalWhitelist[proposer] = true;
+    }
+
+    function removeProposer(address proposer) external onlyGovernance {
+        proposalWhitelist[proposer] = false;
+    }
+
+    // --- Required Overrides ---
+
     function state(uint256 proposalId)
         public
         view
@@ -132,7 +158,10 @@ contract NeighborDAO is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) internal override(Governor, GovernorTimelockControl) {
+    )
+        internal
+        override(Governor, GovernorTimelockControl)
+    {
         super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
     }
 
@@ -141,11 +170,20 @@ contract NeighborDAO is
         uint256[] memory values,
         bytes[] memory calldatas,
         bytes32 descriptionHash
-    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+    )
+        internal
+        override(Governor, GovernorTimelockControl)
+        returns (uint256)
+    {
         return super._cancel(targets, values, calldatas, descriptionHash);
     }
 
-    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+    function _executor()
+        internal
+        view
+        override(Governor, GovernorTimelockControl)
+        returns (address)
+    {
         return super._executor();
     }
 
@@ -157,14 +195,4 @@ contract NeighborDAO is
     {
         return super.supportsInterface(interfaceId);
     }
-
-    // === Admin ===
-    function addToWhitelist(address proposer) external onlyGovernance {
-        proposalWhitelist[proposer] = true;
-    }
-
-    function removeFromWhitelist(address proposer) external onlyGovernance {
-        proposalWhitelist[proposer] = false;
-    }
 }
-
