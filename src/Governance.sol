@@ -31,6 +31,7 @@ contract NeighborDAO is
     mapping(uint256 => uint256) public proposalStartBlock; // Track when voting starts (block number)
     mapping(uint256 => mapping(address => bool)) public hasVoted; // Track if address has voted
 
+
     // --- Constructor ---
 
     constructor(
