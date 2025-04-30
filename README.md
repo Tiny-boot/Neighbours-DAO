@@ -143,7 +143,7 @@ forge test -vv
 ```
 
 
-**Address of contracts on Sepolia** -
+**Address of contracts on Sepolia** 
 
 NeighborGovToken (NGT): 0x...
 
