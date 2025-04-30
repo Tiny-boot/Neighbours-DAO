@@ -60,8 +60,7 @@ Clone the repo and install dependencies:
 git clone https://github.com/Tiny-boot/NeighborDAO.git
 cd NeighborDAO
 forge install
-
-Forge is a state-of-the-art package for running tests, wrting codes and debugging it in Solidity environment.
+```
 
 
 #### 2.1 Download Forge
