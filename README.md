@@ -159,13 +159,9 @@ NeighborGovernor: 0x...
 
 | Students           | Contributions   |
 |--------------------|-------------|
-| `Sami `              | Unit        | 
-| `NGT`              | Integration | 
-| `NGT`              | Fuzz        | 
-| `NRT`              | Unit        | 
-| `NRT`              | Integration | 
-| `NRT`              | Fuzz        | 
-| `StreakDistributor`| Unit        | 
-| `StreakDistributor`| Integration | 
-| `StreakDistributor`| Fuzz        | 
+| Sami Kader-Yettefti              | Tokens, Audit, Tests        | 
+| César            | Design and Team Management, Audit | 
+| Jean-Baptiste              | Test, Governance contract       | 
+| Kathleen              | Governance contract, Audit, Readme.md,Design.md        | 
+| Joséphine              | Design and Team Management,Design.md | 
 
