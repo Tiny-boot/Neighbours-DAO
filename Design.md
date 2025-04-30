@@ -46,7 +46,7 @@ This DAO, called Neighbours-DAO, has been designed with the goal of increasing t
 
 The core motivation behind Neighbours-DAO was to create a governance framework that meaningfully reflects the needs of real communities. Traditional urban decision-making processes often lack transparency and exclude the broader population. By decentralizing governance and introducing financial incentives, we hoped to address voter apathy and foster civic engagement.
 
-We chose the ERC-20 standard due to its strong compatibility with the Ethereum ecosystem and its adaptability for governance. The NGT token, modeled after ERC20Votes, supports delegation, vote weighting, and historical balance tracking — all critical for building trust in an on-chain voting system. We enhanced this model with restrictions like non-transferability and one-time delegation to prevent vote buying or farming, which are common challenges in decentralized governance.
+We chose the ERC-20 standard due to its strong compatibility with the Ethereum ecosystem and its adaptability for governance. The NGT token, modeled after ERC20Votes, supports delegation, vote weighting, and historical balance tracking all critical for building trust in an on-chain voting system. We enhanced this model with restrictions like non-transferability and one-time delegation to prevent vote buying or farming, which are common challenges in decentralized governance.
 
 The NRT reward token was designed to bridge the digital and real-world economies. By allowing NRT to be redeemed at local businesses or for public services, we connected blockchain participation to tangible benefits. This design ensures that civic participation is not only ideological but also economically motivating.
 
