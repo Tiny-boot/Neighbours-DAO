@@ -51,8 +51,8 @@ Residents receive `NRT` tokens as a reward for voting.
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/Tiny-boot/NeighborDAO.git
-cd NeighborDAO
+git clone https://github.com/Tiny-boot/Neighbours-DAO.git
+cd Neighbours-DAO
 forge install
 ```
 
