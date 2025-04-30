@@ -108,7 +108,7 @@ This structure avoided last-minute code breaks and allowed for parallel developm
 - **DevOps discipline pays off**: Strict branch management, automated testing, and version control reviews significantly improved our delivery process.
 
 This project taught us how to bridge smart contract development with social systems and showed us the true power — and complexity — of decentralizing governance in real communities.
-=======
+
 Our goal was to build a neighborhood governance tool that rewards active participation while preventing vote centralization. We focused on:
 
 - Trust-based KYC eligibility
