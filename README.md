@@ -160,8 +160,8 @@ NeighborGovernor: 0x...
 | Students           | Contributions   |
 |--------------------|-------------|
 | Sami Kader-Yettefti              | Tokens, Audit, Tests        | 
-| César            | Design and Team Management, Audit | 
-| Jean-Baptiste              | Test, Governance contract       | 
-| Kathleen              | Governance contract, Audit, Readme.md,Design.md        | 
-| Joséphine              | Design and Team Management,Design.md | 
+| César Denost        | Design and Team Management, Audit | 
+| Jean-Baptiste Astruc   | Test, Governance contract       | 
+| Kathleen Rogan              | Governance contract, Audit, Readme.md,Design.md        | 
+| Joséphine Laguardia            | Design and Team Management,Design.md | 
 
