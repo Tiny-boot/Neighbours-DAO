@@ -154,7 +154,7 @@ NeighborRewardToken (NRT): 0x12b0bb67f5564282fb12da7f60974d54c019af01
 
 StreakDistributor: 0x409478f7ac808344f0cee25da235f7c86dd93684
 
-RepresentativeCouncil: 0x...
+RepresentativeCouncil: 0x9ccb1164c2b96a10f15abaf07a67d58f9f8edf89
 
 NeighborGovernor: 0x4c5c95c3105459cab26b168f54ddb6b167cbd58d
 
