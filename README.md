@@ -166,7 +166,7 @@ Timelock: 0xc8d4c5218b66cde02e74741cee32f899da95063d
 |--------------------|-------------|
 | Sami Kader-Yettefti              | Tokens, Audit, Tests        | 
 | César Denost        | Design and Team Management, Audit | 
-| Jean-Baptiste Astruc   | Tests, Governance contract       | 
+| Jean-Baptiste Astruc   | Tests, Governance contract, Music      | 
 | Kathleen Rogan              | Governance contract, Audit, Readme.md,Design.md        | 
 | Joséphine Laguardia            | Design and Team Management,Design.md | 
 
