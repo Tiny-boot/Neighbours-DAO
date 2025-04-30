@@ -164,7 +164,7 @@ NeighborGovernor: 0x...
 |--------------------|-------------|
 | Sami Kader-Yettefti              | Tokens, Audit, Tests        | 
 | César Denost        | Design and Team Management, Audit | 
-| Jean-Baptiste Astruc   | Test, Governance contract       | 
+| Jean-Baptiste Astruc   | Tests, Governance contract       | 
 | Kathleen Rogan              | Governance contract, Audit, Readme.md,Design.md        | 
 | Joséphine Laguardia            | Design and Team Management,Design.md | 
 
