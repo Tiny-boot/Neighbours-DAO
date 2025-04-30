@@ -53,8 +53,13 @@ As more people vote on a proposal, the reward for new voters decreases.
 This design incentivizes voters to engage promptly with community issues, rather than waiting until the outcome is clear.
 
 
-**Installation and Execution** - How to download and install the project (at the very least need npm and hardhat)
-Tests available (tiny 20 word description of each of the tests)
+**Installation and Execution** - 
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/Tiny-boot/NeighborDAO.git
+cd NeighborDAO
+forge install
 
 *Forge* is a state-of-the-art package for running tests, wrting codes and debugging it in Solidity environment.
 
@@ -123,11 +128,35 @@ forge test --list --json --match-test "testFail*" | tail -n 1 | json_pp
 
 More information on the tests with Foundry are available [here](https://book.getfoundry.sh/reference/forge/forge-test)
 
-#### 2.3 Summary of tests
-While a list of basic tests have been provided for both contract, they do not test all required potential vulnerabilities, hence we do not recommend relying on them.
+#### **2.3 Summary of tests**
+This a basic list of tests that have been provided for all contracts:
+
+| Contract           | Test Type   | Description                                                  |
+|--------------------|-------------|--------------------------------------------------------------|
+| `NGT`              | Unit        | Test for minting eligibility, delegation, and transfer blocking |
+| `NGT`              | Integration | Tests cross-contract delegation and voting rights            |
+| `NGT`              | Fuzz        | Fuzz test for `rageQuit()` and supply invariants             |
+| `NRT`              | Unit        | Ensures merchant-only burning and mint cap enforcement       |
+| `NRT`              | Integration | Validates cap resets yearly                                  |
+| `NRT`              | Fuzz        | Random minting scenarios, asserting cap invariants           |
+| `StreakDistributor`| Unit        | Checks role-based access to points and finalization logic    |
+| `StreakDistributor`| Integration | Simulates reward claims across multiple users                |
+| `StreakDistributor`| Fuzz        | Tests dynamic point-based reward splits                      |
+
+To run the tests use command :  forge test -vv
 
 
-**Address of contracts on Sepolia** - jhigigig
+**Address of contracts on Sepolia** -
+
+NeighborGovToken (NGT): 0x...
+
+NeighborRewardToken (NRT): 0x...
+
+StreakDistributor: 0x...
+
+RepresentativeCouncil: 0x...
+
+NeighborGovernor: 0x...
 
 **Extra** - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
