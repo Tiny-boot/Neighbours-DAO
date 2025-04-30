@@ -61,7 +61,7 @@ git clone https://github.com/Tiny-boot/NeighborDAO.git
 cd NeighborDAO
 forge install
 
-*Forge* is a state-of-the-art package for running tests, wrting codes and debugging it in Solidity environment.
+Forge is a state-of-the-art package for running tests, wrting codes and debugging it in Solidity environment.
 
 
 #### 2.1 Download Forge
@@ -129,13 +129,14 @@ forge test --list --json --match-test "testFail*" | tail -n 1 | json_pp
 More information on the tests with Foundry are available [here](https://book.getfoundry.sh/reference/forge/forge-test)
 
 #### **2.3 Summary of tests**
-This a basic list of tests that have been provided for all contracts:
+
+This is a basic list of tests that have been provided for all contracts:
 
 | Contract           | Test Type   | Description                                                  |
 |--------------------|-------------|--------------------------------------------------------------|
 | `NGT`              | Unit        | Test for minting eligibility, delegation, and transfer blocking |
 | `NGT`              | Integration | Tests cross-contract delegation and voting rights            |
-| `NGT`              | Fuzz        | Fuzz test for `rageQuit()` and supply invariants             |
+| `NGT`              | Fuzz        | Fuzz test for `rageQuit()` and supply invariants              |
 | `NRT`              | Unit        | Ensures merchant-only burning and mint cap enforcement       |
 | `NRT`              | Integration | Validates cap resets yearly                                  |
 | `NRT`              | Fuzz        | Random minting scenarios, asserting cap invariants           |
@@ -143,7 +144,10 @@ This a basic list of tests that have been provided for all contracts:
 | `StreakDistributor`| Integration | Simulates reward claims across multiple users                |
 | `StreakDistributor`| Fuzz        | Tests dynamic point-based reward splits                      |
 
-To run the tests use command :  forge test -vv
+To run the tests, use the command:
+```bash
+forge test -vv
+
 
 
 **Address of contracts on Sepolia** -
