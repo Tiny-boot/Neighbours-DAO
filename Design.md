@@ -5,9 +5,11 @@ This DAO, called Neighbours-DAO, has been designed with the goal of increasing t
 ## II. Technical specification and diagram
 
 
+
 ### Contract and function interaction 
 ![Users ( Residents Representatives)](https://github.com/user-attachments/assets/ca0144b1-4d99-4ab9-952c-4ff806f29686)
 ### Chosen token standards
+
 
 - **NGT**: Custom ERC20Votes (non-transferable + checkpointed)
   - Non-transferable unless to registrar (KYC backdoor)
@@ -19,7 +21,9 @@ This DAO, called Neighbours-DAO, has been designed with the goal of increasing t
 - **NRT**: Standard capped ERC20 token for community rewards
   - Annual mint cap enforced using `block.timestamp`
   - Merchants can burn for order refunds
+
 ### Chosen governance process model
+
 
 - **Proposal Lifecycle:**
   1. Proposal created via RepresentativeCouncil
@@ -104,3 +108,22 @@ This structure avoided last-minute code breaks and allowed for parallel developm
 - **DevOps discipline pays off**: Strict branch management, automated testing, and version control reviews significantly improved our delivery process.
 
 This project taught us how to bridge smart contract development with social systems and showed us the true power — and complexity — of decentralizing governance in real communities.
+=======
+Our goal was to build a neighborhood governance tool that rewards active participation while preventing vote centralization. We focused on:
+
+- Trust-based KYC eligibility
+- One-time voting to prevent vote farming
+- Incentivized rewards tied to proposal voting
+- Community-first design with exit options
+
+### Technical Challenges
+
+- Conviction voting implementation and time weighting were non-trivial.
+- Needed to refactor delegation logic to fit voting restrictions.
+- Merge conflicts around access control were a recurring issue across NGT + Governance + StreakDistributor.
+
+### Management Lessons
+
+- Integrating multiple teams required clear function contracts and deadlines.
+- Git discipline (branches, small commits) was critical to avoid last-minute fire drills.
+- Static and dynamic auditing caught subtle transfer bugs early.
