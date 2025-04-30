@@ -148,15 +148,17 @@ forge test -vv
 
 **Address of contracts on Sepolia** 
 
-NeighborGovToken (NGT): 0x...
+NeighborGovToken (NGT): 0xF72F0Ce7fE5C64B5Da1f1934aB0aFC219E8F4a31
 
-NeighborRewardToken (NRT): 0x...
+NeighborRewardToken (NRT): 0x12b0bb67f5564282fb12da7f60974d54c019af01
 
-StreakDistributor: 0x...
+StreakDistributor: 0x409478f7ac808344f0cee25da235f7c86dd93684
 
 RepresentativeCouncil: 0x...
 
-NeighborGovernor: 0x...
+NeighborGovernor: 0x4c5c95c3105459cab26b168f54ddb6b167cbd58d
+
+Timelock: 0xc8d4c5218b66cde02e74741cee32f899da95063d
 
 **Contributions**
 
