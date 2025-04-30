@@ -1,3 +1,6 @@
+
+![images](https://github.com/user-attachments/assets/a11ec211-dc67-40be-9d88-42ec8a70a4c1)
+
 # 🏘️ Neighbours-DAO
 
 ## 📅 Chronology of Work
