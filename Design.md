@@ -1,3 +1,5 @@
+# Design.md
+
 ## I. Introduction
 
 The Neighbours-DAO aims to significantly increase community involvement by enabling transparent, decentralized decision-making through blockchain technology. Recognizing that urban planning and local governance often engage only a small fraction of city residents, this DAO fosters active community participation by rewarding voters and providing clear visibility into municipal fund allocation. Through specialized ERC-20 tokens for governance (NGT) and rewards (NRT), residents are encouraged to engage actively and meaningfully in their community.
@@ -8,23 +10,43 @@ The Neighbours-DAO aims to significantly increase community involvement by enabl
 
 ### A. Overview of Contracts and Interactions
 
-Our DAO implementation consists of five primary contracts that interact seamlessly to manage governance, token distribution, and incentives. The **NGT (Governance Token)** contract implements an ERC-20 governance token with capabilities for delegation, voting, and maintaining historical checkpoints to track voting power over time. The **NRT (Reward Token)** contract is another ERC-20 token, distributed as a reward for participation in governance activities, and can be utilized within local services.
+Neighbours-DAO is built around five core smart contracts that interact cohesively:
 
-The **NeighborGovernor** contract serves as the central governance mechanism, managing the full proposal lifecycle, executing votes, and coordinating proposal execution. It implements sophisticated voting strategies to ensure equitable community decision-making. The **RepresentativeCouncil** contract is a multi-signature wallet responsible for controlling the submission of proposals and enforces varying signature thresholds depending on proposal significance. Finally, the **StreakDistributor** contract manages incentive logic and reward distributions, employing a dynamic strategy to reward early voter participation more generously.
+- **NGT (NeighborGovToken)**: This is the main governance token, an ERC-20 standard that supports minting, transfer blocking under specific conditions, and voting delegation. It tracks historical balances for vote weighting and supports rage quit functionality.
+- **NRT (NeighborRewardToken)**: Also an ERC-20 token, the NRT serves as the reward mechanism. It enforces mint caps, supports burning by merchant roles only, and has a logic to reset caps annually.
+- **NeighborGovernor**: This contract orchestrates the proposal lifecycle, vote execution, and coordination of the reward distribution logic.
+- **RepresentativeCouncil**: A multi-signature wallet contract that regulates proposal submissions. It enforces a 2-of-5 signature requirement for minor proposals and 4-of-5 for major proposals, ensuring greater consensus for higher-impact decisions.
+- **StreakDistributor**: Manages the distribution of NRT tokens based on voter participation streaks and voting promptness. Rewards decrease as more users vote, incentivizing early engagement.
+
+These contracts collectively create a seamless governance and incentivization flow, from proposal submission to reward issuance.
 
 ![Users (Residents and Representatives)](https://github.com/user-attachments/assets/ca0144b1-4d99-4ab9-952c-4ff806f29686)
 
+---
+
 ### B. Chosen Token Standards
 
-The governance token (NGT) was selected based on the ERC-20 standard for its reliability, broad ecosystem support, and compatibility with delegation and historical voting checkpoint features. The reward token (NRT) also adopts the ERC-20 standard to ensure simplicity in minting, transferring, and integrating the token across different community services and smart contracts.
+Both tokens in this system—NGT and NRT—follow the ERC-20 standard. This decision was made to benefit from the standard's broad compatibility with wallets, exchanges, and tooling. The ERC-20 standard also provides a familiar structure for implementing voting power tracking and transfer logic, which are critical for governance and reward utility in the DAO.
+
+---
 
 ### C. Chosen Governance Process Model
 
-Proposal submission is restricted to official city representatives (e.g., the Mayor, syndicate leaders, and neighborhood heads) and is managed by the **RepresentativeCouncil** multisig wallet. Depending on the level of importance, proposals require different quorum thresholds: 2-of-5 signatures for minor proposals and 4-of-5 for major ones. Voting is executed through the **NeighborGovernor** contract, where voting power is weighted based on NGT token holdings. The **StreakDistributor** calculates dynamic rewards that favor early voters to encourage timely civic participation.
+Governance begins with proposals submitted by official city representatives. This includes mayors, neighborhood delegates, or syndicate heads, through a multisig-controlled process. Minor proposals require 2-of-5 signatures, while major ones demand 4-of-5. 
+
+Registered residents, once verified for identity and location, vote on-chain using the NGT token. Voting power is weighted by token holdings and subject to delegation rules. To promote swift and informed participation, rewards are distributed dynamically by the StreakDistributor—early voters earn higher NRT rewards than those who vote later.
+
+---
 
 ### D. Testing Strategy
 
-Comprehensive testing was consolidated in the test file `neighborContractsTest.T.sol`. This includes unit tests for core functionality, integration tests across contracts (e.g., delegation and reward claim flows), and fuzz/invariance testing to ensure robustness. All tests were conducted using the **Forge** testing framework from Foundry.
+Testing has been consolidated into the `neighborContractsTest.T.sol` file, which includes:
+
+- **Unit Tests** for verifying isolated contract logic such as NGT minting and NRT burning.
+- **Integration Tests** for testing cross-contract workflows, e.g., from delegation to reward issuance.
+- **Fuzz Tests** for edge-case detection and invariant checking, especially around reward caps and rage quit logic.
+
+All tests were conducted using the Forge testing framework from the Foundry toolchain.
 
 ---
 
@@ -32,14 +54,18 @@ Comprehensive testing was consolidated in the test file `neighborContractsTest.T
 
 ### A. Motivation for Token and Governance Model
 
-The decision to adopt ERC-20 for both tokens was influenced by the need for well-supported and extensible standards. ERC-20's support for features such as delegation and balance history enables robust governance mechanisms like vote tracking and power calculation. NRT tokens provide a practical way to incentivize participation, and their use in local services strengthens community engagement. The use of a multisig wallet reflects real-world governance constraints and adds accountability to the proposal process.
+We chose ERC-20 standards for both the governance and reward tokens due to their reliability, modularity, and community support. The delegation and checkpoint features of ERC-20 were key for building the voting model. NRT, as a utility token, adds value to participation by granting access to real-world benefits such as local discounts and services. The multisig submission process ensures that decision-making remains community-rooted but responsibly filtered.
+
+---
 
 ### B. Technical Difficulties Encountered
 
-To manage development efficiently and prevent conflicts, the team decided to split the repository into five branches: three feature branches (`documentation`, `contracts`, `tests`), one `dev` branch, and the `main` branch. Each team member worked from their own forked repository and pushed changes to the relevant feature branch. DevOps managers merged verified contributions into the `dev` branch after validation. Once tested and stable, the code was pushed to the `main` branch for deployment.
+To manage complexity and parallel workstreams, we organized our GitHub repository into five branches: three feature branches (`documentation`, `contracts`, `tests`), a `dev` branch for integration, and the `main` branch for deployment. Contributors worked from forked repositories and merged into their relevant feature branches. The DevOps team oversaw integration and final testing in the `dev` branch before deploying to `main`.
 
-Despite these strategies, we occasionally encountered technical challenges, especially with merge conflicts and integration of contract dependencies. These issues were addressed through strict naming conventions, continuous integration via test pipelines, and regular team syncs.
+Despite this structure, we encountered merge conflicts and test inconsistencies. These were mitigated through small, regular commits, agreed naming conventions, and test-based integration practices. Coordination between contract interfaces was critical to avoid regressions during integration.
+
+---
 
 ### C. Team Organisation
 
-Team organization was structured around clear roles and deliverables. By defining responsibilities early and maintaining open communication channels, we were able to minimize interpersonal friction. The use of a shared calendar, Discord check-ins, and a Kanban board helped us stay aligned on milestones and deliverables. Challenges were mostly technical rather than interpersonal, though coordinating across parallel workstreams required careful planning and flexibility.
+Team roles were assigned based on strengths: contract development, documentation, and DevOps responsibilities were clearly distributed. Communication was facilitated through daily updates and weekly check-ins. We maintained a shared Kanban board and calendar to stay aligned with milestones. Overall, the team dynamic remained positive and productive, and most of our challenges were technical rather than interpersonal.
